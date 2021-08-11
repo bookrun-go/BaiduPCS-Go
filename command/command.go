@@ -1,9 +1,10 @@
 package baidupcscmd
 
 import (
-	"github.com/iikira/BaiduPCS-Go/baidupcs"
-	"github.com/iikira/BaiduPCS-Go/config"
 	"os"
+
+	"github.com/iikira/BaiduPCS-Go/baidupcs"
+	pcsconfig "github.com/iikira/BaiduPCS-Go/config"
 )
 
 var (
@@ -17,7 +18,9 @@ func init() {
 // ReloadInfo 重载配置
 func ReloadInfo() {
 	pcsconfig.Reload()
-	info = baidupcs.NewPCS(pcsconfig.ActiveBaiduUser.BDUSS)
+	if pcsconfig.ActiveBaiduUser != nil {
+		info = baidupcs.NewPCS(pcsconfig.ActiveBaiduUser.BDUSS)
+	}
 }
 
 // ReloadIfInConsole 程序在 Console 模式下才回重载配置
